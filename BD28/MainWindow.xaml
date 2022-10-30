@@ -1,0 +1,23 @@
+﻿<Window x:Class="BD28.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BD28"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="400">
+    <Grid>
+        <StackPanel>
+            <Label Width="200" Margin="0,10">База данных "Парикмахерская"</Label>
+            <Button x:Name="Архив" Click="Архив_Click" Width="200" Margin="0,10">Таблица "Архив"</Button>
+            <Button x:Name="Должности" Click="Должности_Click" Width="200" Margin="0,10">Таблица "Должности"</Button>
+            <Button x:Name="Клиенты" Click="Клиенты_Click" Width="200" Margin="0,10">Таблица "Клиенты"</Button>
+            <Button x:Name="Работы" Click="Работы_Click" Width="200" Margin="0,10">Таблица "Работы"</Button>
+            <Button x:Name="Сотрудники" Click="Сотрудники_Click" Width="200" Margin="0,10">Таблица "Сотрудники"</Button>
+            <Button x:Name="Стрижки" Click="Стрижки_Click" Width="200" Margin="0,10">Таблица "Стрижки"</Button>
+            <Button x:Name="Филиалы" Click="Филиалы_Click" Width="200" Margin="0,10">Таблица "Филиалы"</Button>
+            <Button x:Name="Цены" Click="Цены_Click" Width="200" Margin="0,10">Таблица "Цены"</Button>
+        </StackPanel>
+  
+    </Grid>
+</Window>

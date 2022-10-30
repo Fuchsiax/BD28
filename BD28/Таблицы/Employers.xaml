@@ -1,0 +1,112 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BD28.Таблицы"
+        xmlns:BD28="clr-namespace:BD28" x:Class="BD28.Таблицы.Employers"
+        mc:Ignorable="d"
+        Title="Employers" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <BD28:barbershop4DataSet x:Key="barbershop4DataSet"/>
+        <CollectionViewSource x:Key="сотрудникиViewSource" Source="{Binding Сотрудники, Source={StaticResource barbershop4DataSet}}"/>
+        <CollectionViewSource x:Key="филиалыViewSource" Source="{Binding Филиалы, Source={StaticResource barbershop4DataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource сотрудникиViewSource}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="106*"/>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="267*"/>
+            <ColumnDefinition Width="267*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="2" Grid.Row="0">
+            <Label DockPanel.Dock="Top" Width="200" Margin="0,10" Content="Таблица &quot;Сотрудники&quot;"/>
+
+        </DockPanel>
+
+        <DockPanel Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="266,0,0,0">
+            <Grid x:Name="grid1" DataContext="{StaticResource сотрудникиViewSource}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Имя:" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
+                <TextBox x:Name="имяTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="3" Grid.Row="1" Text="{Binding Имя, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                <Label Grid.Column="0" Content="Фамилия:" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
+                <TextBox x:Name="фамилияTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="3" Grid.Row="2" Text="{Binding Фамилия, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                <Label Grid.Column="0" Content="Отчество:" HorizontalAlignment="Left" Margin="3" Grid.Row="3" VerticalAlignment="Center"/>
+                <TextBox x:Name="отчествоTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="3" Grid.Row="3" Text="{Binding Отчество, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+
+
+                <ComboBox x:Name="филиал" Height="NaN" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="5" VerticalAlignment="Center" Width="120"></ComboBox>
+                <Button x:Name="Add" Click="Add_Click" Height="NaN"  Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="7" VerticalAlignment="Center" Width="120">Добавить</Button>
+                <Button x:Name="Change" Click="Change_Click" Height="NaN" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="8" VerticalAlignment="Center" Width="120">Изменить</Button>
+                <Button x:Name="Delete" Click="Delete_Click" Height="NaN" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="9" VerticalAlignment="Center" Width="120">Удалить</Button>
+                <Label Grid.Column="0" Content="Филиал:" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
+                <ComboBox x:Name="код_филиалаComboBox" Grid.Column="1" DisplayMemberPath="Название" SelectedValuePath="Код_филиала" HorizontalAlignment="Left" Height="NaN" ItemsSource="{Binding Source={StaticResource филиалыViewSource}}" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </Grid>
+
+        </DockPanel>
+        <DataGrid x:Name="сотрудникиDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True"  RowDetailsVisibilityMode="VisibleWhenSelected" Grid.ColumnSpan="3" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="код_сотрудникаColumn" Binding="{Binding Код_сотрудника}" Header="Код сотрудника" IsReadOnly="True" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="имяColumn" Binding="{Binding   Имя}" Header="Имя" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="фамилияColumn" Binding="{Binding  Фамилия}" Header="Фамилия" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="отчествоColumn" Binding="{Binding  Отчество}" Header="Отчество" Width="SizeToHeader"/>
+                <!--<DataGridTextColumn x:Name="код_филиалаColumn" Binding="{Binding Код_филиала}"   Header="Филиал" Width="SizeToHeader"/>-->
+                <!--<DataGridTemplateColumn Header="Филиал">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding Filials}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Название}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                <DataGridTemplateColumn Header="Филиал">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="код_филиалаComboBox" IsReadOnly="True" Grid.Column="1" DisplayMemberPath="Название" SelectedValuePath="Код_филиала" HorizontalAlignment="Left" Height="NaN" ItemsSource="{Binding Source={StaticResource филиалыViewSource}}" Margin="3" Grid.Row="4" VerticalAlignment="Center" Width="120">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <!--<TextBlock Text="{Binding RemarkNavigation.Название}" ></TextBlock>-->
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
